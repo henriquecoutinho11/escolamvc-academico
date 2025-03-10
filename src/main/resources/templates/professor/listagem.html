@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <div th:replace="fragments/config :: config"></div>
+
+    <title>Listagem</title>
+</head>
+<body>
+<div class="container">
+
+    <div th:replace="fragments/header :: cabecalho"></div>
+
+
+    <h2>Cadastro de Professores</h2>
+
+    <table class="table table-striped">
+
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Cpf</th>
+            <th scope="col">Email</th>
+        </tr>
+        </thead>
+
+        <tr th:if="${professor.empty}">
+            <td colspan="2">Sem Professor</td>
+        </tr>
+        <tr th:each="professor : ${professor}">
+            <td><span th:text="${professor.id}"> Id </span></td>
+            <td><span th:text="${professor.nome}"> Nome </span></td>
+            <td><span th:text="${professor.cpf}"> Cpf </span></td>
+            <td><span th:text="${professor.email}"> Email </span></td>
+            <td>
+                <a class="btn btn-outline-danger btn-sm"
+                   th:href="@{/professor/excluir/{id}(id=${professor.id})}"
+                   th:data-confirm-delete="|Você gostaria de apagar ${professor.nome}?|"
+                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+                    Apagar
+                </a>
+
+                <a class="btn btn-outline-primary btn-sm"
+                   th:href="@{/professor/alterar/{id}(id=${professor.id})}">Editar
+                </a>
+
+            </td>
+        </tr>
+    </table>
+
+
+
+
+</div>
+
+</body>
+</html>

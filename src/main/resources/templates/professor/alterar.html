@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <div th:replace="fragments/config :: config"></div>
+
+    <title>Novo Professor</title>
+</head>
+<body>
+<div class="container">
+
+    <div th:replace="fragments/header :: cabecalho"></div>
+
+    <div class="col">
+        <h2>Cadastro de Professores</h2>
+        <div th:if="${mensagem}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${mensagem}"></span><!-- significa que a mensagem que aparecer pode ser diferente -->
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+
+        <form th:action="@{/professor/alterar/{id}(id=${professor.id})}" th:object="${professor}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="row mb-3">
+                <label class="col-sm-1 col-form-label">Nome</label>
+                <div class="col-sm-5">
+                    <input  th:field="*{nome}" type="text" class="form-control" >
+                </div>
+            </div>
+
+
+            <!-- "col-sm-10" significa os espaçamentos da tela, que é 12, se reduzir o campo email vai ficar com a largura menor-->
+            <div class="row mb-3">
+                <label class="col-sm-1 col-form-label">Email</label>
+                <div class="col-sm-3">
+                    <input  th:field="*{email}" type="email" class="form-control">
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Gravar</button>
+        </form>
+    </div>
+
+    <div th:replace="fragments/footer :: rodape"></div>
+
+
+</div>
+
+</body>
+</html>
